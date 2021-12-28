@@ -3,8 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>First Page</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Login</title>
 </head>
 <body>
 
@@ -16,11 +15,10 @@
 </form>
 ---->
 
-<form th:action="@{/saveUser}" th:object="${user}" method="POST">
-    <input type="text" placeholder="Förnamn" th:field="*{firstname}"> <br>
-    <input type="text" placeholder="Efternamn" th:field="*{lastname}"> <br>
-    <input type="text" placeholder="Lösenord" th:name="password" th:field="*{password}"> <br>
-    <input type="text" placeholder="Bekräfta lösenord" th:name="passwordTwo"> <br>
+<form th:action="@{/authenticate-user}" method="POST">
+    <input type="text" placeholder="Förnamn" th:name="firstname"> <br>
+
+    <input type="text" placeholder="Lösenord" th:name="password"> <br>
     <input type="submit" value="Registrera dig">
 </form>
 

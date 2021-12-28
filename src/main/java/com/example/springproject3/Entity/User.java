@@ -13,6 +13,7 @@ public class User {
     private int id;
     private String firstname;
     private String lastname;
+    private String password;
 
     public User(){
     }
@@ -39,6 +40,14 @@ public class User {
 
     public void setLastname(String lastname){
         this.lastname=lastname;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Override
