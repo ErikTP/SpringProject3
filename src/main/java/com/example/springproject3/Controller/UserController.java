@@ -13,31 +13,33 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    /*****************Hanterar användarformuläret****************/
-    /*
-    //Hämtar info av alla användare ("GET") och renderar en vy med formulär.
-    @GetMapping("/welcome")
-    public String welcome(@ModelAttribute("user") User user, Model model){
-        model.addAttribute("users", userService.GetAllUsers());
-        return "user";
+    /*****************Formulär för att logga in användaren*****************/
+    @GetMapping("userLoggedIn/{id}")
+    public String userLoggedIn(@PathVariable("id") Long id,
+                               Model model){
+        User user = userService.getUserById(id);
+        model.addAttribute("user", user);
+        return "loggedIn";
     }
 
-    //Skickar information ("POST") till databasen som sparar användare.
-    @PostMapping("/saveUser")
-    public String saveUser(@ModelAttribute("user") User user){
-    userService.saveUser(user);
-    return "redirect:/welcome";
+    @PostMapping("/loginUser")
+    public String loginUser(@RequestParam("name") String name,
+                            @RequestParam("password") String password
+                            ){
+        User user = userService.getUserByName(name);
+        Long id = user.getId();
+
+        //Kontroll för att se ifall user existerar i databasen
+        if(user!= null && name.equals(user.getName()) && password.equals(user.getPassword())){
+            return "redirect:/userLoggedIn/" + id;
+        }
+
+        return "redirect:/failed";
     }
 
-    //Via en th:action inom user template vägleds vi till en vy för pagetwo template.
-    @GetMapping("/pagetwo")
-    public String startpagetwo (){
-        return "pagetwo";
-    }
-    */
-    /***********************************/
 
-    /*****************Hanterar objekt istället för variabler*****************/
+
+    /*******Hanterar objekt istället för variabler (Sparar användaren)*********/
     @GetMapping("/")
     public String welcome(@ModelAttribute("user") User user){
         return "user";
@@ -56,7 +58,24 @@ public class UserController {
         model.addAttribute("msg", "Oj, något gick fel");
         return "user";
     }
-    /*********Fortsätter längre ner********/
+
+    @PostMapping("/saveUser")
+    public String saveUser(@RequestParam("password") String password,
+                           @RequestParam("passwordTwo") String passwordTwo,
+                           User user){
+
+        if (password.equals(passwordTwo)) {
+            user.setImg("https://via.placeholder.com/150");
+            userService.saveUser(user);
+            return "redirect:/success";
+        }
+
+        return "redirect:/failed";
+
+    }
+
+
+
 
     /*****************Hanterar variabler istället för objekt****************/
     /*
@@ -82,21 +101,7 @@ public class UserController {
     */
     /***********************************/
 
-    /***********Fortsättning som hanterar objekt istället för variabler**********/
-    @PostMapping("/saveUser")
-    public String saveUser(@RequestParam("password") String password,
-                           @RequestParam("passwordTwo") String passwordTwo,
-                           User user){
-
-        if (password.equals(passwordTwo)) {
-            userService.saveUser(user);
-            return "redirect:/success";
-        }
-
-        return "redirect:/failed";
-
-    }
-
+    /******************Läraren Rafaels authentication test***************/
 //    @PostMapping("/user/auth")
 //    @ResponseBody
 //    public Boolean authUser(@RequestBody User user){
@@ -132,6 +137,31 @@ public class UserController {
         return "login";
     }
 */
+    /***********************************/
+
+    /*****************Hanterar första exemplar för användarformuläret****************/
+    /*
+    //Hämtar info av alla användare ("GET") och renderar en vy med formulär.
+    @GetMapping("/welcome")
+    public String welcome(@ModelAttribute("user") User user, Model model){
+        model.addAttribute("users", userService.GetAllUsers());
+        return "user";
+    }
+
+    //Skickar information ("POST") till databasen som sparar användare.
+    @PostMapping("/saveUser")
+    public String saveUser(@ModelAttribute("user") User user){
+    userService.saveUser(user);
+    return "redirect:/welcome";
+    }
+
+    //Via en th:action inom user template vägleds vi till en vy för pagetwo template.
+    @GetMapping("/pagetwo")
+    public String startpagetwo (){
+        return "pagetwo";
+    }
+    */
+    /***********************************/
 
 }
 

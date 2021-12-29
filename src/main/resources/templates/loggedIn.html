@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Logged in</title>
+</head>
+<body>
+
+<h1>Du är inloggad</h1>
+
+<p th:text="${user.name}"></p>
+<img th:src="@{${user.img}}"/>
+
+</body>
+</html>

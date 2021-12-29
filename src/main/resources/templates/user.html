@@ -16,13 +16,30 @@
 </form>
 ---->
 
+
 <form th:action="@{/saveUser}" th:object="${user}" method="POST">
+    <input type="text" placeholder="Användare" th:field="*{name}"> <br>
+    <input type="text" placeholder="Lösenord" th:field="*{password}"> <br>
+    <input type="text" placeholder="Bekräfta lösenord" th:name="passwordTwo"> <br>
+
     <input type="text" placeholder="Förnamn" th:field="*{firstname}"> <br>
     <input type="text" placeholder="Efternamn" th:field="*{lastname}"> <br>
-    <input type="text" placeholder="Lösenord" th:name="password" th:field="*{password}"> <br>
-    <input type="text" placeholder="Bekräfta lösenord" th:name="passwordTwo"> <br>
+    <input type="text" placeholder="Adress" th:field="*{adress}"> <br>
     <input type="submit" value="Registrera dig">
 </form>
+
+<form th:action="@{/loginUser}" method="POST">
+    <input type="text" placeholder="Användare" th:name="name"> <br>
+    <input type="text" placeholder="Lösenord" th:name="password"> <br>
+    <input type="submit" value="Logga in">
+</form>
+
+
+
+
+
+
+
 
 <!----
 <div th:each="user: ${users}">

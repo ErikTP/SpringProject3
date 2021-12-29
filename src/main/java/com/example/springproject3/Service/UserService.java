@@ -14,29 +14,45 @@ public class UserService {
     private UserRepository userRepository;
 
     public void saveUser(User user){
-        String encryptedPass = encryptPassword(user.getPassword(), encryptionKeyProvider());
-        user.setPassword(encryptedPass);
         userRepository.save(user);
     }
 
     public List<User> GetAllUsers(){
         return userRepository.findAll();
     }
-    /*****************Funktion som krypterar lösenord******************/
-    private String encryptPassword(String plainTextPass, int encryptionKey){
-        StringBuilder sb = new StringBuilder();
-        char [] chars = plainTextPass.toCharArray();
-        for (char c: chars){
-            c = (char) (c+ encryptionKey);
-            sb.append(c);
-        }
-        return sb.toString();
+
+    /****************User metod för att kopplas till Repository*******************/
+    public User getUserByName(String name){
+        return userRepository.findByName(name);
     }
 
-    /****************Funktion som ger oss krypteringsnyckel*******************/
-    private int encryptionKeyProvider(){
-        return 3;
+    public User getUserById(Long id){
+        return userRepository.findById(id).orElseThrow();
     }
+
+//    public void saveUser(User user){
+//        String encryptedPass = encryptPassword(user.getPassword(), encryptionKeyProvider());
+//        user.setPassword(encryptedPass);
+//        userRepository.save(user);
+//    }
+
+
+//    /*****************Funktion som krypterar lösenord******************/
+//    private String encryptPassword(String plainTextPass, int encryptionKey){
+//        StringBuilder sb = new StringBuilder();
+//        char [] chars = plainTextPass.toCharArray();
+//        for (char c: chars){
+//            c = (char) (c+ encryptionKey);
+//            sb.append(c);
+//        }
+//        return sb.toString();
+//    }
+//
+//    /****************Funktion som ger oss krypteringsnyckel*******************/
+//    private int encryptionKeyProvider(){
+//        return 3;
+//    }
+
 
 //    public boolean authUser(User user) {
 //        User dbUser = userRepository.getTheUserWithFirstName(user.getFirstname());
