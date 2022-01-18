@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Social Network Profile Management</title>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Social Network Profile Management</h1>
+    <hr>
+    <h2>Save Friend</h2>
+
+    <form action="#" th:action="@{/savePostUser}" th:object="${postUser}"
+          method="POST">
+
+        <input type="text" th:field="*{firstName}"
+               placeholder="Friend First Name" class="form-control mb-4 col-4">
+
+        <input type="text" th:field="*{lastName}"
+               placeholder="Friend Last Name" class="form-control mb-4 col-4">
+
+        <input type="text" th:field="*{email}"
+               placeholder="Friend Email" class="form-control mb-4 col-4">
+
+        <input type="text" th:field="*{post}"
+               placeholder="Friend Posts" class="form-control mb-4 col-4">
+
+        <button type="submit" class="btn btn-info col-2"> Save Friend</button>
+
+    </form>
+
+    <hr>
+
+    <a th:href = "@{/}"> Back to Friends List</a>
+
+</div>
+
+<!-------------------------- Registrering av jobb via jobbformulär -------------------------->
+<!--<form th:action="@{/saveJob}" th:object="${job}" method="POST">-->
+<!--    <input type="text" placeholder="Beskrivning" th:field="*{description}"> <br>-->
+<!--    <input type="submit" value="Registrera jobb">-->
+<!--</form>-->
+
+<!--<div th:each="job: ${jobs}">-->
+<!--    <p th:text="${job.description}"/>-->
+<!--</div>-->
+
+</body>
+</html>
